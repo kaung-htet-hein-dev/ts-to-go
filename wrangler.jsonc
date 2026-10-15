@@ -1,11 +1,14 @@
 {
   "name": "ts-to-go",
+  "main": "worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     // Unknown paths get dist/404.html with a real 404 status, so crawlers
     // don't index soft-404s. Lessons are prerendered to dist/lesson/<id>.html.
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/google454e2ac404436ce8.html"]
   }
 }
