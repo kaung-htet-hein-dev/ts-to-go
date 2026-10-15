@@ -1,0 +1,90 @@
+/* Tokens. Accent colors carry one meaning everywhere:
+   blue = running, yellow = waiting/blocked, green = done/correct,
+   red = error/deadlock, purple = runtime internals. */
+:root {
+  color-scheme: dark;
+
+  --bg: #23272f;
+  --bg-raised: #282d36;
+  --deep: #16181d;
+  --panel: #1b1e24;
+  --track: #1f232a;
+  --line: #343a46;
+  --dim: #404756;
+  --dim-hover: #4b5263;
+  --empty: #262a33;
+
+  --text-1: #f6f7f9;
+  --text-2: #ebecf0;
+  --text-3: #99a1b3;
+
+  --brand: #58c4dc;
+  --brand-hover: #7fd3e6;
+  --brand-deep: #149eca;
+  --brand-tint: rgba(88, 175, 223, 0.1);
+  --runnable: #2e5d73;
+
+  --wait: #fabd62;
+  --queued: #db7d27;
+  --ok: #44ac99;
+  --ok-2: #7fccbf;
+  --err: #c1554d;
+  --err-2: #d07d77;
+  --rt: #8891ec;
+
+  --sans: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Source Code Pro', ui-monospace, Menlo, monospace;
+
+  --topbar-h: 64px;
+  --sidebar-w: 300px;
+  --pill: 999px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: 88px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-2);
+  font: 400 17px/30px var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--brand); }
+a:hover { color: var(--brand-hover); }
+::selection { background: rgba(88, 175, 223, 0.3); }
+
+button { font: inherit; color: inherit; }
+button:not(:disabled) { cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+h1, h2, h3 { color: var(--text-1); margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+
+code, kbd, pre { font-family: var(--mono); }
+
+/* Inline code inside prose */
+.ic {
+  font: 500 0.88em var(--mono);
+  background: var(--line);
+  color: var(--text-1);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.ic-bare { font: 500 0.88em var(--mono); color: var(--text-1); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+}
