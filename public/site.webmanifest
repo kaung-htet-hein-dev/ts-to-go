@@ -1,0 +1,13 @@
+{
+  "name": "Go from TypeScript",
+  "short_name": "TS to Go",
+  "description": "Learn Go if you already know JavaScript or TypeScript.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#23272F",
+  "theme_color": "#23272F",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

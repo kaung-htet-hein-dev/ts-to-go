@@ -106,7 +106,7 @@ func TestAdd(t *testing.T) {
   pitfalls: [
     { title: 'Using t.Fatal inside a goroutine', body: '`t.Fatal` stops the test by ending the goroutine that called it. If you call it from a goroutine you started, only that goroutine ends and the test keeps running. Use `t.Error` there, or send the result back to the test goroutine over a channel.' },
     { title: 'Forgetting the file name rule', body: 'A test in `math_tests.go` or `mathTest.go` is never run. The file must end exactly in `_test.go`, and the function must start with `Test` followed by a capital letter or nothing.' },
-    { title: 'Expecting a mocking framework', body: 'There is no built-in `jest.mock`. Go code is usually tested by accepting an **interface** and passing a small fake struct in the test. That is one more reason Go functions take interfaces as parameters. See [Interfaces without "implements"](#/lesson/interfaces).' },
+    { title: 'Expecting a mocking framework', body: 'There is no built-in `jest.mock`. Go code is usually tested by accepting an **interface** and passing a small fake struct in the test. That is one more reason Go functions take interfaces as parameters. See [Interfaces without "implements"](/lesson/interfaces).' },
   ],
   note: 'Tests in the same package (`package math`) can see unexported names, the lowercase ones that other packages cannot use. It is like a JS test that can reach functions you never exported from the module. If you want to test only the public API, name the test package `math_test`. Both can live in the same folder.',
   predict: {
@@ -392,7 +392,7 @@ fmt.Println(err)
           },
         },
         'What Go does **not** check: missing keys (the field keeps its zero value) and extra keys (ignored). For rules like "required" or "between 1 and 100", you write a normal `Validate()` method or `if` checks after decoding.',
-        'For HTTP bodies and other streams, use `json.NewDecoder(r.Body).Decode(&v)` instead of reading everything first. `r.Body` is an `io.Reader`, covered in [io.Reader and io.Writer](#/lesson/io). Call `dec.DisallowUnknownFields()` if extra keys should be an error.',
+        'For HTTP bodies and other streams, use `json.NewDecoder(r.Body).Decode(&v)` instead of reading everything first. `r.Body` is an `io.Reader`, covered in [io.Reader and io.Writer](/lesson/io). Call `dec.DisallowUnknownFields()` if extra keys should be an error.',
       ],
     },
   ],
@@ -438,7 +438,7 @@ if err != nil {
 }
 fmt.Println(u.Name, u.Age) // Bo 30`,
     answers: ['&u'],
-    success: '`&u` is a pointer to `u`, so `Unmarshal` can fill its fields in place. Any function that needs to change your variable takes a pointer. More in [Pointers](#/lesson/pointers).',
+    success: '`&u` is a pointer to `u`, so `Unmarshal` can fill its fields in place. Any function that needs to change your variable takes a pointer. More in [Pointers](/lesson/pointers).',
     wrong: [
       { answers: ['u'], title: 'That passes a copy', body: 'Go passes arguments by value. `Unmarshal` would get a copy it cannot write back from, so it returns `json: Unmarshal(non-pointer main.User)`.' },
       { answers: ['*u'], title: 'That is the other direction', body: '`*` follows a pointer to get the value. `u` is not a pointer. You want the operator that **takes** an address.' },
@@ -539,7 +539,7 @@ log.Fatal(http.ListenAndServe(":8080", mux))`,
         'Wrap the whole router: `http.ListenAndServe(":8080", logged(mux))`. Because `ServeHTTP` returns only after the handler finishes, the timing is correct without callbacks. Code after `h.ServeHTTP` runs the way code after `await next()` runs in Koa.',
         {
           list: [
-            '`r.Context()` is cancelled when the client disconnects, like an `AbortSignal` that fires on its own. Pass it to database calls. See [context](#/lesson/context).',
+            '`r.Context()` is cancelled when the client disconnects, like an `AbortSignal` that fires on its own. Pass it to database calls. See [context](/lesson/context).',
             'Set headers **before** `w.WriteHeader(code)` or the first `w.Write`. After that they are already sent.',
             'For real servers, build an `http.Server` with `ReadTimeout` and `WriteTimeout` instead of the bare `ListenAndServe`.',
           ],
@@ -566,7 +566,7 @@ fmt.Println(rec.Body.String()) // {"id":"7"}`,
   ],
   pitfalls: [
     { title: 'Forgetting to return after an error', body: '`http.Error(w, "bad", 400)` writes a response but does not stop your function. Without a `return`, the handler keeps going and writes more. Express works the same way after `res.status(400).send()`. Always `return` right after it.' },
-    { title: 'Shared state without a lock', body: 'Each request runs in its own goroutine, possibly on different CPU cores at the same time. A package-level map that handlers write to needs a `sync.Mutex`. In Node this could not happen, because all your JavaScript runs on one thread. See [Race conditions](#/lesson/races).' },
+    { title: 'Shared state without a lock', body: 'Each request runs in its own goroutine, possibly on different CPU cores at the same time. A package-level map that handlers write to needs a `sync.Mutex`. In Node this could not happen, because all your JavaScript runs on one thread. See [Race conditions](/lesson/races).' },
     { title: 'Setting headers too late', body: 'Calling `w.Header().Set` after `w.Write` has no effect: the headers already went out with the first byte. The server logs "superfluous response.WriteHeader call" in a related case.' },
   ],
   predict: {
@@ -824,7 +824,7 @@ for _, f := range fs {
 // before:  3 3 3 (with the old 3-clause loop)`,
         },
         'This is the same fix JavaScript made when it introduced `let` in `for` loops. Before 1.22, closures and goroutines started inside a loop all shared one variable, and people wrote `i := i` to work around it. You can delete those lines in modules on `go 1.22` or later.',
-        'The same release upgraded `net/http` routing with methods and `{wildcards}`, covered in [net/http server](#/lesson/http).',
+        'The same release upgraded `net/http` routing with methods and `{wildcards}`, covered in [net/http server](/lesson/http).',
       ],
     },
     {

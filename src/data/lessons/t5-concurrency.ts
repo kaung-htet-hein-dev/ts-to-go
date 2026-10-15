@@ -116,14 +116,14 @@ wg.Wait()`,
   ],
   pitfalls: [
     { title: 'Calling wg.Add inside the goroutine', body: 'If you write `wg.Add(1)` inside the new goroutine, `wg.Wait()` may run first, see a count of zero and return too early. Always call `Add` in the parent before `go`, or use `wg.Go`.' },
-    { title: 'Expecting a return value from go', body: '`x := go f()` does not compile. A goroutine cannot return a value to its caller. Send the result on a [channel](#/lesson/channels) or write it into a slot the parent owns.' },
+    { title: 'Expecting a return value from go', body: '`x := go f()` does not compile. A goroutine cannot return a value to its caller. Send the result on a [channel](/lesson/channels) or write it into a slot the parent owns.' },
     { title: 'Assuming an order', body: 'Goroutines run in no particular order. Starting g1 before g2 does not mean g1 prints first. If order matters, you must coordinate them with channels or locks.' },
   ],
   deepDive: {
     q: 'Why are goroutines so much cheaper than OS threads?',
     body: [
       'An OS thread is a thread created by the operating system. It usually reserves 1 MB or more of stack, and switching between threads goes through the kernel (the core of the operating system). A goroutine starts with a 2 KB stack that grows when needed. Switching between goroutines happens inside the Go runtime, inside your own process.',
-      'The runtime spreads many goroutines over a few OS threads, about one per CPU core. You will see how in [The scheduler](#/lesson/scheduler).',
+      'The runtime spreads many goroutines over a few OS threads, about one per CPU core. You will see how in [The scheduler](/lesson/scheduler).',
     ],
   },
   predict: {
@@ -258,7 +258,7 @@ default:
             rows: [
               ['`time.After(d)`', 'A channel that receives once after `d`, like `setTimeout`. Good for a one-off timeout.'],
               ['`time.NewTicker(d)`', 'A channel that receives every `d`, like `setInterval`. Call `Stop()` when done.'],
-              ['`ctx.Done()`', 'A channel that is closed when the work is cancelled. See [context](#/lesson/context).'],
+              ['`ctx.Done()`', 'A channel that is closed when the work is cancelled. See [context](/lesson/context).'],
               ['a `nil` channel', 'Blocks forever, so a case on it is never chosen.'],
             ],
           },
@@ -693,7 +693,7 @@ fmt.Println(res.Status)`,
       eyebrow: 'Listening',
       title: 'How your code notices cancellation',
       blocks: [
-        'A context has two methods for this. `ctx.Done()` returns a channel that is closed on cancel, so you can use it in a [select](#/lesson/select). It is the Go version of `signal.addEventListener("abort", ...)`. `ctx.Err()` returns `nil` while the context is alive, and `context.Canceled` or `context.DeadlineExceeded` after. It is close to checking `signal.aborted` and `signal.reason`.',
+        'A context has two methods for this. `ctx.Done()` returns a channel that is closed on cancel, so you can use it in a [select](/lesson/select). It is the Go version of `signal.addEventListener("abort", ...)`. `ctx.Err()` returns `nil` while the context is alive, and `context.Canceled` or `context.DeadlineExceeded` after. It is close to checking `signal.aborted` and `signal.reason`.',
         {
           code: `func worker(ctx context.Context, jobs <-chan Job) error {
     for {
@@ -924,7 +924,7 @@ for await (const v of square(gen())) {
   pitfalls: [
     { title: 'Closing results from a worker', body: 'If each worker closes `results` when it ends, the second one panics with "close of closed channel". Close it once, from a goroutine that waits for all workers.' },
     { title: 'Reading results in the same goroutine that feeds jobs', body: 'With unbuffered channels, if `main` sends all jobs before reading any result, workers block on `results <-` and nobody is left to take jobs. Feed in a separate goroutine.' },
-    { title: 'No way to stop early', body: 'If the reader quits early, stages block forever on send. Pass a `ctx` and use `select` with `case <-ctx.Done()` on each send. See [Deadlocks and goroutine leaks](#/lesson/deadlocks).' },
+    { title: 'No way to stop early', body: 'If the reader quits early, stages block forever on send. Pass a `ctx` and use `select` with `case <-ctx.Done()` on each send. See [Deadlocks and goroutine leaks](/lesson/deadlocks).' },
   ],
   predict: {
     code: `jobs := make(chan int)
@@ -1016,7 +1016,7 @@ const deadlocks: LessonContent = {
       eyebrow: 'Deadlocks',
       title: 'The usual ways to freeze',
       blocks: [
-        'You met the first one in [Channels](#/lesson/channels). Here are the common shapes:',
+        'You met the first one in [Channels](/lesson/channels). Here are the common shapes:',
         {
           table: {
             head: ['Cause', 'Example'],

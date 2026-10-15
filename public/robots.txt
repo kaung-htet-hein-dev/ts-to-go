@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ts-to-go.kaungdev.workers.dev/sitemap.xml

@@ -84,7 +84,7 @@ func Total(shapes []Shape) float64 {
             ],
           },
         },
-        '`any` is another name for `interface{}`, an interface with zero methods. Every type has at least zero methods, so every value fits. To get the real value back out, you use a [type assertion](#/lesson/assertions).',
+        '`any` is another name for `interface{}`, an interface with zero methods. Every type has at least zero methods, so every value fits. To get the real value back out, you use a [type assertion](/lesson/assertions).',
       ],
     },
     {
@@ -102,7 +102,7 @@ func (d *Dog) Speak() string { return "woof" }
 var a Speaker = &Dog{} // ok: *Dog has Speak
 var b Speaker = Dog{}  // compile error`,
         },
-        'To fix it, store a pointer (`&Dog{}`), or use a value receiver if the method does not change the struct. [Methods: value versus pointer receivers](#/lesson/methods) explains why the rule exists.',
+        'To fix it, store a pointer (`&Dog{}`), or use a value receiver if the method does not change the struct. [Methods: value versus pointer receivers](/lesson/methods) explains why the rule exists.',
         {
           pitfall: 'To make the compiler check that a type satisfies an interface, add `var _ Shape = Square{}` at package level. The `_` throws the value away. It costs nothing at runtime and fails the build if a method goes missing.',
           title: 'Want an "implements" check anyway?',
@@ -113,13 +113,13 @@ var b Speaker = Dog{}  // compile error`,
   pitfalls: [
     { title: 'Putting fields in an interface', body: 'TypeScript interfaces often describe data shapes, like `{ name: string }`. Go interfaces cannot have fields. If you need data, use a struct. If you need behaviour, use an interface with methods like `Name() string`.' },
     { title: 'Making interfaces too big', body: 'A 10-method interface is hard to implement and hard to fake in tests. Split it. A function that only reads should ask for something with a `Read` method, not a whole `Database`.' },
-    { title: 'Using any everywhere', body: 'Unlike `any` in TypeScript, Go\'s `any` behaves like TypeScript `unknown`: you cannot call methods or use operators on it until you get the concrete type back with an assertion. Code full of `any` swaps checks the compiler does for checks at runtime that can fail. Reach for a small interface or [generics](#/lesson/generics) first.' },
+    { title: 'Using any everywhere', body: 'Unlike `any` in TypeScript, Go\'s `any` behaves like TypeScript `unknown`: you cannot call methods or use operators on it until you get the concrete type back with an assertion. Code full of `any` swaps checks the compiler does for checks at runtime that can fail. Reach for a small interface or [generics](/lesson/generics) first.' },
   ],
   deepDive: {
     q: 'How does Go call a method through an interface?',
     body: [
       'An interface value is two machine words (two pointer-sized slots in memory). One points to a small table called the "itab". The other points to the data. The itab holds the concrete type and the memory addresses of its methods.',
-      'Calling `s.Area()` looks up `Area` in the itab and jumps there. Go builds the itab once per (type, interface) pair and caches it, so the call is cheap. Those two words also explain the [nil interface trap](#/lesson/niltrap).',
+      'Calling `s.Area()` looks up `Area` in the itab and jumps there. Go builds the itab once per (type, interface) pair and caches it, so the call is cheap. Those two words also explain the [nil interface trap](/lesson/niltrap).',
     ],
   },
   predict: {
@@ -412,7 +412,7 @@ if s, ok := v.(string); ok {
   ],
   pitfalls: [
     { title: 'Asserting on a non-interface', body: '`x.(int)` only works when `x` has an interface type. If `x` is already a `string`, you need a type conversion like `int(x)` instead, and maybe the `strconv` package.' },
-    { title: 'Using assertions for errors', body: 'Checking `err.(*NotFound)` misses wrapped errors. Use `errors.As` instead. It looks through the whole wrap chain. See [Errors as values](#/lesson/errors).' },
+    { title: 'Using assertions for errors', body: 'Checking `err.(*NotFound)` misses wrapped errors. Use `errors.As` instead. It looks through the whole wrap chain. See [Errors as values](/lesson/errors).' },
     { title: 'Big type switches as a design', body: 'A switch over 10 types usually means a missing interface. If every type should "draw itself", give each one a `Draw()` method and call it.' },
   ],
   predict: {
@@ -882,7 +882,7 @@ const panicLesson: LessonContent = {
     return "ok" // never runs
 }`,
         },
-        'Look at the **named result** `msg`: the return value has a name, like a variable declared in the signature. A deferred function can change named results, as you saw in [defer](#/lesson/defer). That is how a recovered function still returns something useful.',
+        'Look at the **named result** `msg`: the return value has a name, like a variable declared in the signature. A deferred function can change named results, as you saw in [defer](/lesson/defer). That is how a recovered function still returns something useful.',
         { note: 'The `net/http` server recovers panics in each handler, so one bad request does not take down your whole server. Express does something similar: it catches an error thrown in a route handler (and, since Express 5, a rejected promise) and sends a 500 response. That is the usual place for `recover`: at the edge of one unit of work, like one request or one job.' },
       ],
     },

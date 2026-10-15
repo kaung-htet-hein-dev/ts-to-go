@@ -48,7 +48,7 @@ function PlaygroundView({ preset, onPreset }: { preset: Preset; onPreset: (id: s
               {PRESETS.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
             </select>
           </label>
-          <a href="#/" className="pg-back" onClick={e => { if (window.history.length > 1) { e.preventDefault(); window.history.back() } }}>‹ Back</a>
+          <a href="/" className="pg-back" onClick={e => { if (window.history.length > 1) { e.preventDefault(); window.history.back() } }}>‹ Back</a>
         </div>
         <div className="pg-code-body"><CodeLines code={preset.code} decor={decor} /></div>
         <div className="pg-out">

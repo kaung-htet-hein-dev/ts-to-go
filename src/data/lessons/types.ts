@@ -3,7 +3,7 @@
 // Inline text ("Rich" strings) supports a tiny markup:
 //   `code`            inline code
 //   **bold**          strong text
-//   [label](#/lesson/id)  link to another lesson (or any href)
+//   [label](/lesson/id)  link to another lesson (or any href)
 
 import type { LessonId } from '../course'
 

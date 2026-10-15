@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#23272F"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#58C4DC"/>
+  <rect x="80" y="84" width="96" height="96" rx="26" fill="#58C4DC"/>
+  <text x="128" y="148" text-anchor="middle" font-family="Menlo, monospace" font-weight="700" font-size="46" fill="#16181D">go</text>
+  <text x="200" y="146" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="34" fill="#99A1B3">ts-to-go.kaungdev.workers.dev</text>
+  <text x="80" y="310" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="84" fill="#F6F7F9">Go from TypeScript</text>
+  <text x="80" y="380" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="36" fill="#B8BFCC">Learn Go if you already write JavaScript or TypeScript.</text>
+  <text x="80" y="428" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="36" fill="#B8BFCC">40 interactive lessons, from goroutines to the GC.</text>
+  <g font-family="Menlo, monospace" font-size="26">
+    <rect x="80" y="486" width="470" height="70" rx="12" fill="#16181D"/>
+    <text x="104" y="530" fill="#F6F7F9"><tspan fill="#C792EA">await</tspan> Promise.all(jobs)</text>
+    <text x="582" y="530" fill="#58C4DC" font-size="34">→</text>
+    <rect x="636" y="486" width="470" height="70" rx="12" fill="#16181D"/>
+    <text x="660" y="530" fill="#F6F7F9"><tspan fill="#58C4DC">go</tspan> worker(jobs); wg.Wait()</text>
+  </g>
+</svg>

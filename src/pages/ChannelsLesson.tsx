@@ -117,7 +117,7 @@ export function ChannelsLesson() {
           </Callout>
           <DeepDive question="What is a channel, inside the runtime?">
             <p>A channel value is a pointer (a reference, like a JS object variable) to a runtime struct called <code className="ic-bare">hchan</code>. It holds a ring buffer, its length and capacity, a lock, and two queues of paused goroutines: <code className="ic-bare">sendq</code> and <code className="ic-bare">recvq</code>.</p>
-            <p>When a send can't proceed, the runtime puts the goroutine on <code className="ic-bare">sendq</code> and the scheduler runs something else on that thread. A blocked goroutine costs a few kilobytes of memory and no CPU. That's why Go code is happy to wait on a line where JavaScript would use a callback or <code className="ic-bare">await</code>. We open <code className="ic-bare">hchan</code> up properly in <a href="#/lesson/internals" style={{ color: C.runtime }}>Inside a slice, a map, a channel</a>.</p>
+            <p>When a send can't proceed, the runtime puts the goroutine on <code className="ic-bare">sendq</code> and the scheduler runs something else on that thread. A blocked goroutine costs a few kilobytes of memory and no CPU. That's why Go code is happy to wait on a line where JavaScript would use a callback or <code className="ic-bare">await</code>. We open <code className="ic-bare">hchan</code> up properly in <a href="/lesson/internals" style={{ color: C.runtime }}>Inside a slice, a map, a channel</a>.</p>
           </DeepDive>
         </div>
       </Section>

@@ -68,7 +68,7 @@ export function ChannelSimulator({ frames, player, cap, close, onCap, onClose }:
         <span className="sim-title">Channel simulator</span>
         {statusPill(F, player)}
         {blocked && <Pill color={C.wait}>A goroutine is blocked</Pill>}
-        <a href="#/playground" className="sim-link">Open in Playground</a>
+        <a href="/playground" className="sim-link">Open in Playground</a>
       </div>
 
       <div className="sim-controls">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 import { PauseIcon, PlayIcon } from '../components/icons'
 import { TRACKS, lessonHref } from '../data/course'
 import { C, tone } from '../lib/colors'
@@ -41,11 +41,23 @@ const PANELS = [
     code: 'for _, u := range urls {\n    wg.Add(1)\n    go func() { defer wg.Done(); parse(get(u)) }()\n}\nwg.Wait()' },
 ]
 
-const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+const reducedMotion = () => window.matchMedia(MOTION_QUERY).matches
+const subscribeMotion = (fn: () => void) => {
+  const mq = window.matchMedia(MOTION_QUERY)
+  mq.addEventListener('change', fn)
+  return () => mq.removeEventListener('change', fn)
+}
 
 function RuntimeRace() {
-  const [t, setT] = useState(() => (reducedMotion() ? END : 0))
-  const [playing, setPlaying] = useState(() => !reducedMotion())
+  // Reduced motion starts on the finished frame. Until the user presses Play
+  // the timeline is derived from the media query (false while prerendering).
+  const reduce = useSyncExternalStore(subscribeMotion, reducedMotion, () => false)
+  const [started, setStarted] = useState(false)
+  const [time, setT] = useState(0)
+  const [play, setPlaying] = useState(true)
+  const t = reduce && !started ? END : time
+  const playing = reduce && !started ? false : play
 
   useEffect(() => {
     if (!playing || t >= END) return
@@ -66,7 +78,7 @@ function RuntimeRace() {
         <span className="num">t = {Math.round(t * 5)} ms</span>
         {playing
           ? <button type="button" className="btn btn-secondary" onClick={() => setPlaying(false)}><PauseIcon />Pause</button>
-          : <button type="button" className="btn btn-primary" onClick={() => { if (t >= END) setT(0); setPlaying(true) }}><PlayIcon />{t >= END ? 'Replay' : 'Play'}</button>}
+          : <button type="button" className="btn btn-primary" onClick={() => { setStarted(true); if (t >= END) setT(0); setPlaying(true) }}><PlayIcon />{t >= END ? 'Replay' : 'Play'}</button>}
       </div>
       <div className="race-panels">
         {PANELS.map(p => (
@@ -145,7 +157,7 @@ export function Home() {
               <span className="track-card-blurb">{t.blurb}</span>
             </a>
           ))}
-          <a href="#/playground" className="track-card pg-card">
+          <a href="/playground" className="track-card pg-card">
             <span className="num" style={{ color: C.runtime }}>Any time</span>
             <span className="track-card-title">Playground</span>
             <span className="track-card-blurb">Step through recorded programs: goroutine lanes, channels and output, one step at a time.</span>

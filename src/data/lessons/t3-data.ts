@@ -113,7 +113,7 @@ fmt.Println(n, dst) // 3 [1 2 3]`,
     q: 'How much does append grow the array?',
     body: [
       'For small slices the runtime roughly doubles the capacity. For large slices (above about 256 items) it grows by smaller steps, so it does not waste too much memory.',
-      'If you already know how many items you will add, pre-size with `make([]T, 0, n)`. That avoids repeated allocations and copies. We look inside the slice header in [Inside a slice, a map, a channel](#/lesson/internals).',
+      'If you already know how many items you will add, pre-size with `make([]T, 0, n)`. That avoids repeated allocations and copies. We look inside the slice header in [Inside a slice, a map, a channel](/lesson/internals).',
     ],
   },
   predict: {
@@ -260,7 +260,7 @@ var m3 map[string]int            // nil: read OK,
   pitfalls: [
     { title: 'Writing to a nil map panics', body: '`var m map[string]int` declares a map variable but does not create the map, so it is `nil`. Reading from it is fine (you get zeros). Writing crashes with "assignment to entry in nil map". Create it with `make` or `{}` first.' },
     { title: 'Depending on iteration order', body: 'Do not write tests that expect keys in a certain order. If you need order, collect the keys into a slice and sort it with `slices.Sorted(maps.Keys(m))`.' },
-    { title: 'Maps are not safe across goroutines', body: 'Goroutines are functions running at the same time. Reading and writing the same map from two goroutines at once can crash the program with "concurrent map writes" or "concurrent map read and map write". Protect it with a mutex (a lock that lets one goroutine in at a time). See [sync](#/lesson/sync).' },
+    { title: 'Maps are not safe across goroutines', body: 'Goroutines are functions running at the same time. Reading and writing the same map from two goroutines at once can crash the program with "concurrent map writes" or "concurrent map read and map write". Protect it with a mutex (a lock that lets one goroutine in at a time). See [sync](/lesson/sync).' },
   ],
   note: 'Like slices, a map variable refers to shared data, the way a JS variable refers to an object. Passing a map to a function lets that function change your map.',
   predict: {
@@ -500,7 +500,7 @@ q.X = 10
 fmt.Println(p.X) // 1`,
           },
         },
-        'When you want sharing, take a pointer: `q := &p`. A pointer holds the memory address of `p`, so `q.X = 10` changes `p`. You write `q.X` the same way for a pointer and a value. See [Pointers](#/lesson/pointers).',
+        'When you want sharing, take a pointer: `q := &p`. A pointer holds the memory address of `p`, so `q.X = 10` changes `p`. You write `q.X` the same way for a pointer and a value. See [Pointers](/lesson/pointers).',
         'Structs can be compared with `==` if all their fields can. In JS, `==` on two objects checks whether they are the same object. In Go, two `Point` values are equal when every field is equal. That makes structs handy as map keys.',
       ],
     },
@@ -543,13 +543,13 @@ d := Dog{Animal{"Rex"}, "lab"}
 fmt.Println(d.Hello()) // hi, Rex
 fmt.Println(d.Name)    // Rex`,
         },
-        'This looks like inheritance, but it is composition. A `Dog` is not an `Animal`: you cannot pass a `Dog` where an `Animal` is expected. The `Dog` **has** an `Animal` inside, and Go writes the forwarding code for you. To share behaviour across types, use [interfaces](#/lesson/interfaces).',
+        'This looks like inheritance, but it is composition. A `Dog` is not an `Animal`: you cannot pass a `Dog` where an `Animal` is expected. The `Dog` **has** an `Animal` inside, and Go writes the forwarding code for you. To share behaviour across types, use [interfaces](/lesson/interfaces).',
       ],
     },
   ],
   pitfalls: [
     { title: 'Expecting changes to show up after passing a struct', body: 'In JS, a function receives the same object you passed. In Go, a function that takes `u User` gets a copy. Changing `u.Age` inside does nothing for the caller. Take `*User` (a pointer) if the function should modify it.' },
-    { title: 'Lowercase fields disappear in JSON', body: '`encoding/json` (Go\'s `JSON.stringify` and `JSON.parse`) only sees exported (capitalised) fields. A field named `name` is silently skipped. See [JSON and struct tags](#/lesson/json).' },
+    { title: 'Lowercase fields disappear in JSON', body: '`encoding/json` (Go\'s `JSON.stringify` and `JSON.parse`) only sees exported (capitalised) fields. A field named `name` is silently skipped. See [JSON and struct tags](/lesson/json).' },
     { title: 'Treating embedding as inheritance', body: 'There is no `super`, no overriding with dynamic dispatch, and no "is-a" relationship. If `Dog` defines its own `Hello`, it hides `Animal.Hello`, but `Animal` methods still call `Animal` code.' },
   ],
   predict: {
@@ -699,7 +699,7 @@ fmt.Println(Celsius(100).F()) // 212`,
   ],
   pitfalls: [
     { title: 'Value receiver that "does nothing"', body: 'A setter like `func (u User) SetName(n string) { u.Name = n }` compiles and runs, but changes a copy. The caller never sees it. Use `*User`.' },
-    { title: 'Mixing receivers and interfaces', body: 'If `Inc` has a pointer receiver, then a `Counter` value does not satisfy an interface that needs `Inc`; only `*Counter` does. The error says "method Inc has pointer receiver". More in [Interfaces](#/lesson/interfaces).' },
+    { title: 'Mixing receivers and interfaces', body: 'If `Inc` has a pointer receiver, then a `Counter` value does not satisfy an interface that needs `Inc`; only `*Counter` does. The error says "method Inc has pointer receiver". More in [Interfaces](/lesson/interfaces).' },
     { title: 'Copying a struct with a mutex', body: 'A value receiver copies the struct, including any `sync.Mutex` (a lock) inside. The copy has its own lock, so nothing is protected. `go vet` flags this as "passes lock by value".' },
   ],
   note: 'A method value like `f := c.Inc` remembers its receiver. You can pass `c.Inc` as a callback with no `.bind(this)`.',

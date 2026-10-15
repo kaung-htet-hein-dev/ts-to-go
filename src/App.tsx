@@ -3,7 +3,8 @@ import { Sidebar } from './components/Sidebar'
 import { TopBar } from './components/TopBar'
 import { trackOf } from './data/course'
 import { LESSONS } from './data/lessons'
-import { useRoute } from './lib/router'
+import { usePath, splitPath } from './lib/router'
+import { applyMeta, routeMeta } from './lib/seo'
 import { Home } from './pages/Home'
 import { ChannelsLesson } from './pages/ChannelsLesson'
 import { LessonPage } from './pages/LessonPage'
@@ -14,13 +15,15 @@ import './styles/layout.css'
 import './styles/pages.css'
 
 export default function App() {
-  const [page, param] = useRoute()
+  const path = usePath()
+  const [page, param] = splitPath(path)
   const [drawer, setDrawer] = useState(false)
   const routeKey = `${page}/${param}`
 
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [routeKey])
+    applyMeta(routeMeta(path))
+  }, [routeKey, path])
 
   if (page === 'playground') {
     return (
@@ -44,6 +47,15 @@ export default function App() {
               ? <LessonPage key={routeKey} lesson={LESSONS[lessonId]} />
               : <LessonPlaceholder key={routeKey} id={lessonId} />}
         </div>
+      </div>
+    )
+  }
+
+  if (page) {
+    return (
+      <div className="app">
+        <TopBar active="learn" />
+        <LessonPlaceholder />
       </div>
     )
   }

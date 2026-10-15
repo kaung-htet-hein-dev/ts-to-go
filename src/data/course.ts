@@ -61,7 +61,7 @@ const ALL = TRACKS.flatMap(t => t.lessons)
 
 export const lessonTitle = (id: LessonId) => ALL.find(x => x.id === id)?.title ?? id
 export const trackOf = (id: LessonId) => TRACKS.find(t => t.lessons.some(x => x.id === id))
-export const lessonHref = (id: LessonId) => `#/lesson/${id}`
+export const lessonHref = (id: LessonId) => `/lesson/${id}`
 export const TOTAL_LESSONS = ALL.length
 
 export function neighbors(id: LessonId) {

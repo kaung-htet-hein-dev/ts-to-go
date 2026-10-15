@@ -7,7 +7,7 @@ export function LessonPlaceholder({ id }: { id?: LessonId }) {
         <div className="lesson empty-state">
           <h1 className="lesson-title">That lesson doesn't exist</h1>
           <p className="lead">The link may be out of date. Pick a lesson from the course menu.</p>
-          <a href="#/" className="btn btn-primary btn-md">Go to the home page</a>
+          <a href="/" className="btn btn-primary btn-md">Go to the home page</a>
         </div>
       </main>
     )
