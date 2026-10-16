@@ -90,8 +90,18 @@ export function ChannelsLesson() {
       </Section>
 
       <Section id="s-concept" n={2} eyebrow="The concept" title="A channel is a pipe with a size">
-        <p className="lp tight">The size of the pipe decides who waits for whom. With no buffer, a send and a receive have to meet: the sender holds the value until a receiver takes it. With a buffer (a few slots of storage inside the channel), the sender can drop values in and keep going until every slot is full.</p>
-        <p className="lp">Below, a fast sender pushes four numbers to a slow receiver. Change the buffer size and press play. Watch for the moment the sender turns yellow.</p>
+        <Callout kind="note" title="In one sentence">
+          <p>The size of the pipe decides who waits for whom.</p>
+        </Callout>
+        <p className="lp tight">You might wonder why a pipe needs a size at all. It's about what happens when the two sides run at different speeds. There are two cases:</p>
+        <ol className="bullets">
+          <li><strong>No buffer</strong> (<code className="ic">make(chan int)</code>): a send and a receive have to meet. The sender holds the value and waits on that line until a receiver takes it.</li>
+          <li><strong>A buffer</strong> (<code className="ic">make(chan int, 2)</code>): the channel has a few slots of storage inside it. The sender drops values in and keeps going. It only waits once every slot is full.</li>
+        </ol>
+        <Callout kind="note" title="Think of it like this">
+          <p>An unbuffered channel is handing a parcel to someone in person: you both have to be at the door. A buffered channel is a mailbox with a few slots: you can leave parcels and walk away, until the mailbox is full.</p>
+        </Callout>
+        <p className="lp">Try it below. A fast sender pushes four numbers to a slow receiver. Change the buffer size and press play. Watch for the moment the sender turns yellow: that is the sender waiting.</p>
         <ChannelSimulator
           {...sim}
           onCap={n => { setCap(n); player.reset() }}
@@ -128,7 +138,7 @@ export function ChannelsLesson() {
       </Section>
 
       <Section id="s-challenge" n={6} eyebrow="Challenge" title="Fill the blank so it prints true">
-        <p className="lp">Right now this deadlocks (every goroutine is stuck waiting, so the runtime stops the program). There's one goroutine, and it sends before it receives. Change one number.</p>
+        <p className="lp">Right now this deadlocks. A deadlock means every goroutine is stuck waiting, so the runtime stops the program. Here there is only one goroutine, and it sends before it receives, so nobody is free to take the value. Change one number so the send doesn't have to wait.</p>
         <Challenge />
       </Section>
     </LessonShell>
@@ -179,7 +189,7 @@ function Predict() {
         <div className={right ? 'callout callout-ok callout-sm result' : 'callout callout-err callout-sm result'} role="status">
           <div className="callout-head">{right ? 'Correct' : 'Not quite'}</div>
           <p>{right
-            ? 'The buffer holds two values. The third send has no room and no receiver, and main is the only goroutine, so nothing can ever make room. The runtime notices that every goroutine is blocked and stops the program.'
+            ? 'Step by step: the buffer holds two values, so sends 1 and 2 go straight in. Send 3 finds no room and no receiver, so main waits. But main is the only goroutine, so nothing can ever make room. The runtime notices that every goroutine is blocked and stops the program with a deadlock.'
             : 'Line 4 never finishes. The buffer is full after two sends, and the only goroutine that could receive is main itself, which is stuck on the send. The Println on line 5 never runs. The runtime reports a deadlock instead.'}</p>
         </div>
       )}

@@ -14,7 +14,7 @@ export type Block =
   | Rich
   | { code: string; lang?: 'go' | 'ts'; title?: string; file?: string }
   | { compare: { ts: string; go: string; tsFile?: string; goFile?: string } }
-  | { list: Rich[] }
+  | { list: Rich[]; /** Numbered steps instead of bullets. */ ordered?: boolean }
   | { note: Rich; title?: string }
   | { pitfall: Rich; title?: string }
   | { table: { head: Rich[]; rows: Rich[][] } }

@@ -88,7 +88,10 @@ function BlockView({ b }: { b: Block }) {
       </div>
     )
   }
-  if ('list' in b) return <ul className="bullets">{b.list.map((t, k) => <li key={k}><Rich text={t} /></li>)}</ul>
+  if ('list' in b) {
+    const items = b.list.map((t, k) => <li key={k}><Rich text={t} /></li>)
+    return b.ordered ? <ol className="bullets">{items}</ol> : <ul className="bullets">{items}</ul>
+  }
   if ('note' in b) return <div className="block-callout"><Callout kind="note" title={b.title}><p><Rich text={b.note} /></p></Callout></div>
   if ('pitfall' in b) return <div className="block-callout"><Callout kind="pitfall" title={b.title}><p><Rich text={b.pitfall} /></p></Callout></div>
   return (

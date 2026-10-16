@@ -22,37 +22,37 @@ const l = (id: string, title: string): Lesson => ({ id, title })
 export const TRACKS: Track[] = [
   {
     id: 'start', n: 1, title: 'Start here',
-    blurb: 'Go builds one program file you can copy and run. No classes, no throw/catch. Meet the go command and how packages share code.',
+    blurb: 'Why does Go feel so different from TS? It builds one program file you can copy and run, and it has no classes and no throw/catch. Start here for the mental map, the go command, and how packages share code.',
     lessons: [l('differs', 'How Go differs from JS and TS'), l('toolchain', 'Toolchain: mod, run, build, fmt, vet, test'), l('packages', 'Packages and exported names')],
   },
   {
     id: 'basics', n: 2, title: 'Basics',
-    blurb: 'Variables start at a zero value instead of undefined. One loop keyword, functions that return two values, defer, and pointers.',
+    blurb: 'In JS, a variable you forget to set is undefined. In Go, it starts at a safe zero value. Learn that, the one loop keyword Go has, functions that return two values, defer for cleanup, and pointers.',
     lessons: [l('variables', 'Variables, := and zero values'), l('types', 'Types, constants, iota'), l('control', 'for, if, switch'), l('functions', 'Functions, multiple returns, closures'), l('defer', 'defer'), l('pointers', 'Pointers')],
   },
   {
     id: 'data', n: 3, title: 'Data',
-    blurb: 'Slices (Go\'s growable arrays) that can share memory, maps, text as bytes, and structs that reuse code without extends.',
+    blurb: 'Slices are Go\'s growable arrays, and two of them can quietly share memory. Learn slices, maps, text as bytes and runes, and how structs reuse code without extends.',
     lessons: [l('slices', 'Arrays versus slices'), l('maps', 'Maps'), l('strings', 'Strings, bytes, runes'), l('structs', 'Structs and embedding'), l('methods', 'Methods: value versus pointer receivers')],
   },
   {
     id: 'types', n: 4, title: 'Types and errors',
-    blurb: 'Interfaces you never declare on a type, the nil interface trap, generics, and errors returned like any other value.',
+    blurb: 'Go checks interfaces by shape, like TS does, but you never write implements. Learn interfaces, the nil interface trap, generics, and why errors are returned like any other value.',
     lessons: [l('interfaces', 'Interfaces without "implements"'), l('niltrap', 'Interface values and the nil trap'), l('assertions', 'Type assertions and type switches'), l('generics', 'Generics and constraints'), l('errors', 'Errors as values: wrapping, Is, As'), l('panic', 'panic and recover')],
   },
   {
     id: 'concurrency', n: 5, title: 'Concurrency',
-    blurb: 'Goroutines in place of async/await, channels for passing values, select, locks, context (Go\'s AbortController) and common patterns.',
+    blurb: 'In JS you await things on one thread. In Go you start goroutines and pass values between them through channels. Learn goroutines, channels, select, locks, context (Go\'s AbortController) and common patterns.',
     lessons: [l('goroutines', 'Goroutines versus async/await'), l('channels', 'Channels: unbuffered and buffered'), l('select', 'select'), l('sync', 'sync: Mutex, WaitGroup, Once, atomic'), l('races', 'Race conditions'), l('context', 'context: cancel, timeout, values'), l('patterns', 'Patterns: worker pool, pipeline, fan-in'), l('deadlocks', 'Deadlocks and goroutine leaks')],
   },
   {
     id: 'under', n: 6, title: 'Under the hood',
-    blurb: 'How Go runs your code: the scheduler, stack and heap memory, the garbage collector, and what slices, maps and channels look like inside.',
+    blurb: 'What actually happens when your Go code runs? Look inside the scheduler, stack and heap memory, the garbage collector, and the structures behind slices, maps and channels.',
     lessons: [l('scheduler', 'The scheduler'), l('escape', 'Stack versus heap, escape analysis'), l('gc', 'Garbage collector'), l('stacks', 'Growing stacks'), l('internals', 'Inside a slice, a map, a channel'), l('layout', 'Struct layout and padding')],
   },
   {
     id: 'building', n: 7, title: 'Building things',
-    blurb: 'Tests, streams with io.Reader, JSON, an HTTP server like Express, modules, and what changed in newer Go.',
+    blurb: 'Put it all together and build real things: tests, streams with io.Reader, JSON, an HTTP server like Express, modules, and what changed in newer Go.',
     lessons: [l('testing', 'Testing, benchmarks, fuzzing'), l('io', 'io.Reader and io.Writer'), l('json', 'JSON and struct tags'), l('http', 'net/http server'), l('modules', 'Project layout and modules'), l('newer', 'Newer Go')],
   },
 ]
